@@ -9,10 +9,11 @@ export default function RawHtmlScreen() {
   const containerRef = useRef(null);
   const contentRef = useRef(null);
   const [visible, setVisible] = useState(false);
+  const [bootingStarted, setBootingStarted] = useState(false);
 
   // Show during raw and booting phases
   useEffect(() => {
-    if (phase === "raw") setVisible(true);
+    if (phase === "loading" || phase === "raw") setVisible(true);
     if (phase === "booted") {
       // Smooth blur removal + fade
       const el = containerRef.current;
@@ -20,7 +21,7 @@ export default function RawHtmlScreen() {
         gsap.to(el, {
           filter: "blur(0px)",
           opacity: 0,
-          duration: 0.8,
+          duration: 0.2,
           ease: "power2.inOut",
           onComplete: () => setVisible(false),
         });
@@ -30,10 +31,16 @@ export default function RawHtmlScreen() {
     }
   }, [phase]);
 
+  useEffect(() => {
+    if (phase === "booting" && !bootingStarted) {
+      setBootingStarted(true);
+    }
+  }, [phase, bootingStarted]);
+
   // When booting starts: SLOW, VISIBLE transition from white HTML → dark styled
   // The user wants to SEE this happening behind the very slightly blurred boot overlay
   useEffect(() => {
-    if (phase !== "booting" || !contentRef.current) return;
+    if (!bootingStarted || !contentRef.current) return;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
@@ -86,7 +93,7 @@ export default function RawHtmlScreen() {
     }, contentRef);
 
     return () => ctx.revert();
-  }, [phase]);
+  }, [bootingStarted]);
 
   if (!visible) return null;
 
@@ -94,7 +101,7 @@ export default function RawHtmlScreen() {
     <div
       ref={containerRef}
       className="fixed inset-0 z-[90]"
-      style={{ filter: phase === "raw" ? "blur(0.5px)" : "blur(0px)" }}
+      style={{ filter: "blur(0px)" }}
     >
       {/* Raw HTML content */}
       <div ref={contentRef} className="raw-html-overlay absolute inset-0 overflow-y-auto p-4 md:p-8">
@@ -170,8 +177,30 @@ export default function RawHtmlScreen() {
         <div className="fixed inset-0 z-[95] flex items-center justify-center pointer-events-none">
           <button
             onClick={() => setPhase("booting")}
-            className="bg-black hover:bg-[#6fe0ff] hover:text-black pointer-events-auto px-10 py-5 text-xl md:text-2xl tracking-widest rounded-lg uppercase shadow-xl shadow-blue-400"
-            style={{ minWidth: "220px", minHeight: "60px" }}
+            className="pointer-events-auto px-10 py-5 text-xl md:text-2xl tracking-widest rounded-lg uppercase cursor-pointer"
+            style={{
+              minWidth: "220px",
+              minHeight: "60px",
+              background: "#ffffff",
+              border: "1.5px solid #d1d5db",
+              color: "#1f2937",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#38bdf8";
+              e.currentTarget.style.color = "#000";
+              e.currentTarget.style.borderColor = "#38bdf8";
+              e.currentTarget.style.boxShadow = "0 0 25px rgba(56, 189, 248, 0.4), 0 0 50px rgba(56, 189, 248, 0.15)";
+              e.currentTarget.style.transform = "scale(1.05)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "#ffffff";
+              e.currentTarget.style.color = "#1f2937";
+              e.currentTarget.style.borderColor = "#d1d5db";
+              e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.08)";
+              e.currentTarget.style.transform = "scale(1)";
+            }}
           >
             ENTER NOW
           </button>

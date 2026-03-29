@@ -1,26 +1,441 @@
 @import "tailwindcss";
 
+/* ===== DESIGN TOKENS ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #06080d;
+  --foreground: #e8edf5;
+
+  /* Sky Blue Palette */
+  --color-bg: #06080d;
+  --color-bg-alt: #0a0e18;
+  --color-primary: #38bdf8;
+  --color-primary-light: #7dd3fc;
+  --color-primary-dark: #0284c7;
+  --color-glow: 0 0 20px rgba(56, 189, 248, 0.35), 0 0 50px rgba(56, 189, 248, 0.15);
+  --color-glow-strong: 0 0 10px rgba(56, 189, 248, 0.5), 0 0 30px rgba(56, 189, 248, 0.25), 0 0 60px rgba(56, 189, 248, 0.1);
+  --color-text: #e0f2fe;
+  --color-text-muted: #94a3b8;
+  --color-surface: rgba(56, 189, 248, 0.04);
+  --color-border: rgba(56, 189, 248, 0.12);
+
+  /* Fonts */
+  /* --font-display:"Nt_Voyager1" serif; */
+  /* --font-alt-display: "CONEGA", serif; */
+  /* --font-nav: monospace; */
+  /* --font-body: "Space Grotesk", "NTVoyager", sans-serif; */
+  /* --font-mono: "Courier New", "Consolas", monospace; */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* --font-sans: var(--font-body); */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ===== @font-face ===== */
+@font-face {
+  font-family: "Barviera";
+  src: url("/fonts/Barviera.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "CONEGA";
+  src: url("/fonts/CONEGA.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Karteh";
+  src: url("/fonts/Karteh.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "NTVoyager";
+  src: url("/fonts/Nt_Voyager1.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "NTVoyager";
+  src: url("/fonts/Nt_Voyager2.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Londrina";
+  src: url("/fonts/Londrina.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== BASE ===== */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
+  background: var(--color-bg);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: var(--font-body); */
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== LOADING SCREEN (Phase 1) ===== */
+.loading-screen {
+  font-family: var(--font-mono);
+  background: #000;
+}
+
+.loading-bar {
+  background: var(--color-primary);
+  height: 3px;
+  transform-origin: left;
+}
+
+/* ===== RAW HTML MODE (Phase 2) ===== */
+.raw-html-overlay {
+  background: #fff;
+  color: #000;
+  font-family: "Times New Roman", "Georgia", serif;
+  line-height: 1.6;
+  overflow-y: auto;
+  transition: background-color 1.2s ease, color 1.2s ease;
+}
+
+.raw-html-overlay h1,
+.raw-html-overlay h2,
+.raw-html-overlay h3 {
+  font-family: "Times New Roman", "Georgia", serif;
+  font-weight: bold;
+  margin: 0.5em 0;
+}
+
+.raw-html-overlay h1 { font-size: 2em; }
+.raw-html-overlay h2 { font-size: 1.5em; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+.raw-html-overlay h3 { font-size: 1.17em; }
+
+.raw-html-overlay p {
+  margin: 0.5em 0;
+}
+
+.raw-html-overlay ul {
+  list-style: disc;
+  padding-left: 2em;
+  margin: 0.5em 0;
+}
+
+.raw-html-overlay a {
+  color: #0000EE;
+  text-decoration: underline;
+  transition: color 0.8s ease;
+}
+
+.raw-html-overlay hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  transition: border-color 0.8s ease;
+}
+
+/* ===== ENTER NOW BUTTON (Phase 2) ===== */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.25), 0 0 40px rgba(56, 189, 248, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.5), 0 0 60px rgba(56, 189, 248, 0.2);
+  }
+}
+
+/* .enter-btn {
+  font-family: var(--font-nav);
+  border: 2px solid var(--color-primary);
+  background: rgba(6, 8, 13, 0.95);
+  color: var(--color-primary);
+  animation: pulse-glow 2.5s ease-in-out infinite;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+} */
+
+/* .enter-btn:hover {
+  background: var(--color-primary);
+  color: #000;
+  transform: scale(1.05);
+} */
+
+/* ===== BOOT SEQUENCE (Phase 3) ===== */
+.boot-overlay {
+  font-family: var(--font-mono);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.boot-content {
+  max-width: 500px;
+  padding: 2rem;
+}
+
+@keyframes boot-line-enter {
+  0% { opacity: 0; transform: translateY(10px) scale(0.95); filter: blur(6px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0px); }
+}
+
+.boot-line {
+  animation: boot-line-enter 0.35s ease-out forwards;
+  will-change: transform, opacity, filter;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.boot-cursor {
+  animation: blink-cursor 0.7s step-end infinite;
+}
+
+/* ===== NAVBAR ===== */
+.nav-blur {
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  background: rgba(6, 8, 13, 0.7);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-link {
+  /* font-family: var(--font-nav); */
+  color: var(--color-text-muted);
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+}
+
+.nav-cta {
+  /* font-family: var(--font-nav); */
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.nav-cta:hover {
+  background: var(--color-primary);
+  color: #000;
+  box-shadow: var(--color-glow);
+}
+
+.mobile-nav {
+  background: rgba(6, 8, 13, 0.97);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+/* ===== HERO ===== */
+.hero-section {
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.hero-title {
+  color: #ffffff;
+  line-height: 0.85;
+  text-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
+}
+
+/* .hero-v1 {
+  font-family: var(--font-nav);
+} */
+
+/* The zoom letter/word for scroll transition */
+.zoom-letter {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform-origin: center center;
+}
+
+/* ===== TRACK CARDS ===== */
+.track-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  will-change: transform, opacity, filter;
+}
+
+.track-card:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.08);
+  transform: translateY(-4px);
+}
+
+/* ===== TIMELINE ===== */
+.timeline-box {
+  background: rgba(6, 8, 13, 0.9);
+  border: 1px solid var(--color-border);
+  will-change: transform, opacity, filter;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.timeline-box:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+}
+
+/* .timeline-box .event-name {
+  font-family: var(--font-display);
+} */
+
+.timeline-box .event-date {
+  font-family: var(--font-mono);
+}
+
+/* Timeline expanded schedule */
+.timeline-expanded {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.timeline-box.expanded .timeline-expanded,
+.timeline-box:hover .timeline-expanded {
+  max-height: 400px;
+  opacity: 1;
+}
+
+/* ===== FAQ ===== */
+.faq-item {
+  border-bottom: 1px solid rgba(56, 189, 248, 0.08);
+  will-change: transform, opacity, filter;
+}
+
+.faq-question {
+  font-family: var(--font-body);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: color 0.3s;
+  color: var(--color-text);
+}
+
+.faq-question::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 0;
+  background: var(--color-primary);
+  z-index: 0;
+  transition: width 0.4s ease;
+}
+
+@media (hover: hover) {
+  .faq-question:hover::before {
+    width: 100%;
+  }
+  .faq-question:hover {
+    color: #000;
+  }
+}
+
+.faq-question > span {
+  position: relative;
+  z-index: 1;
+}
+
+.faq-answer {
+  font-family: var(--font-mono);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  color: var(--color-text-muted);
+}
+
+.faq-answer.open {
+  max-height: 300px;
+  opacity: 1;
+}
+
+/* ===== VENUE ===== */
+.venue-transport {
+  font-family: var(--font-mono);
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+  font-family: var(--font-mono);
+  background: #030306;
+  color: rgba(56, 189, 248, 0.5);
+}
+
+.site-footer a {
+  color: rgba(56, 189, 248, 0.5);
+  transition: color 0.3s;
+}
+
+.site-footer a:hover {
+  color: var(--color-primary);
+}
+
+/* ===== CTA BUTTONS ===== */
+.cta-primary {
+  /* font-family: var(--font-nav); */
+  background: var(--color-primary);
+  color: #000;
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.cta-primary:hover {
+  box-shadow: var(--color-glow-strong);
+  transform: translateY(-2px);
+}
+
+.cta-secondary {
+  /* font-family: var(--font-nav); */
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  background: transparent;
+  transition: background 0.3s;
+}
+
+.cta-secondary:hover {
+  background: rgba(56, 189, 248, 0.1);
+}
+
+/* ===== GLOW UTILITIES ===== */
+.glow-text {
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.4), 0 0 40px rgba(56, 189, 248, 0.15);
+}
+
+/* ===== SECTION WIPE ===== */
+.section-wipe {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* ===== GSAP PIN SPACER FIX ===== */
+.gsap-pin-spacer {
+  overflow: visible !important;
+}
+
+/* ===== CARDBOARD TEXTURE (hero background) ===== */
+.bg-texture {
+  background-color: var(--color-bg);
+  background-image: url("https://www.transparenttextures.com/patterns/cardboard.png");
+  background-blend-mode: overlay;
 }

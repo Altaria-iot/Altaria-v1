@@ -25,7 +25,7 @@ export default function LoadingScreen() {
         frameRef.current = requestAnimationFrame(tick);
       } else {
         setCollapsing(true);
-        setTimeout(() => setPhase("raw"), 500);
+        setTimeout(() => setPhase("booted"), 500);
       }
     }
 

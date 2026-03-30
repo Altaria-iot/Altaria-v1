@@ -88,7 +88,7 @@ export default function About() {
           probably shouldn{"'"}t exist — but definitely should.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
           {[
             { title: "24 Hours", desc: "Non-stop building from idea to prototype.", icon: "⚡" },
             { title: "₹50,000+", desc: "Because wild ideas deserve real rewards.", icon: "🏆" },

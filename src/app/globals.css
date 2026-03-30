@@ -229,7 +229,6 @@ body {
 /* The zoom letter/word for scroll transition */
 .zoom-letter {
   display: inline-block;
-  will-change: transform, opacity;
   transform-origin: center center;
 }
 

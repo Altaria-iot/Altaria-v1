@@ -83,7 +83,7 @@ export default function Hero() {
         <div
           ref={zoomGroupRef}
           className="flex flex-col items-center justify-center whitespace-nowrap"
-          style={{ transformOrigin: "center center", willChange: "transform, opacity" }}
+          style={{ transformOrigin: "center center" }}
         >
           <h1 className="hero-title zoom-letter text-[clamp(4rem,12vw,12rem)] leading-none mb-0 flex items-baseline justify-center whitespace-nowrap gap-4 font-[Londrina] text-9xl">
             <span>ALTARIA V</span><span>1</span>

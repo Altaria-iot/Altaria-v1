@@ -37,10 +37,7 @@ export default function RootLayout({ children }) {
         <link rel="preload" href="/fonts/Nt_Voyager1.otf" as="font" type="font/otf" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/Nt_Voyager2.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
       </head>
-<<<<<<< HEAD
-      <body className="min-h-screen flex flex-col">{children}</body>
-=======
-      <body className="min-h-screen flex flex-col" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         {children}
         {/* Devfolio branding — server-rendered for bot verification */}
         <div style={{ padding: "24px 0", textAlign: "center", background: "#06080d" }}>
@@ -66,7 +63,6 @@ export default function RootLayout({ children }) {
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script defer async src="https://apply.devfolio.co/v2/sdk.js"></script>
       </body>
->>>>>>> 9dc106fadcdb78196a6337cf6a113dda2201c678
     </html>
   );
 }

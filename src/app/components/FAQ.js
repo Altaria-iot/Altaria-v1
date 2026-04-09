@@ -87,7 +87,7 @@ export default function FAQ() {
   return (
     <section id="faq" ref={sectionRef} className="relative py-24 md:py-32 px-4 md:px-8 bg-[#06080d]">
       <div className="max-w-3xl mx-auto">
-        <h2 ref={headingRef} className="text-4xl md:text-6xl font-bold mb-16 glow-text font-['NTVoyager',serif] text-[#ffffff]" style={{ opacity: 0 }}>FAQ</h2>
+        <h2 ref={headingRef} className="text-4xl md:text-6xl font-bold mb-16 glow-text font-['Space Grotesk',serif] text-[#ffffff]" style={{ opacity: 0 }}>FAQ</h2>
         <div className="flex flex-col">
           {FAQS.map((faq, i) => (
             <div key={i} ref={el => (itemsRef.current[i] = el)} className="faq-item" style={{ opacity: 0 }}>

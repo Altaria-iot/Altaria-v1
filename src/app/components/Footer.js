@@ -34,7 +34,7 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="text-xs uppercase tracking-widest mb-4" style={{ color: "rgba(56,189,248,0.7)" }}>Venue</h4>
-            <p className="text-xs leading-relaxed">Dayananda Sagar College of Engineering<br />Shavige Malleshwara Hills, Kumaraswamy Layout<br />Bengaluru, Karnataka 560078</p>
+            <p className="text-xs leading-relaxed">Dayananda Sagar College of Engineering<br />Shavige Malleshwara Hills, Kumaraswamy Layout<br />Bengaluru, Karnataka 560078<br/>CD Sagar, Building No. 10</p>
           </div>
         </div>
 

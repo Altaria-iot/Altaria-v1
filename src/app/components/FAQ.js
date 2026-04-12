@@ -11,6 +11,7 @@ const FAQS = [
   { q: "What is Altaria?", a: "Altaria is a next-generation hackathon focused on building innovative solutions at the intersection of AI with IoT, Cybersecurity, and Blockchain. It’s designed to push participants to solve real-world problems using cutting-edge technology." },
   { q: "Who can participate?", a: "Anyone from Bachelors of Engineering who are passionate about technology can participate — students, developers, designers, and innovators.Both beginners and experienced hackers are welcome." },
   { q: "Can I participate solo or do I need a team?", a: "No solo participation \n · team size of 2-3" },
+  { q: "Will accomodation be  provided?", a: "Participants are required to arrange their own accommodation prior to the hackathon, as it will not be provided by the organizers. During the 24-hour hackathon, participants must remain on campus, and overnight stay within the college premises will be facilitated." },
   { q: "Are there any registration fees?", a: "No, participation in Altaria is completely free." },
   { q: "What do I need to submit?", a: "Participants need to submit: 1. Working prototype / demo 2.  Source code (GitHub) 3. Short explanation or presentation" },
   { q: "What are the judging criteria?", a: "Projects will be judged based on: 1. Innovation & creativity  2. Technical implementation  3. Real-world impact  4. Presentation & clarity" },

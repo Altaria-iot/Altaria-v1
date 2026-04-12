@@ -27,7 +27,7 @@ export default function Footer() {
             <h4 className="text-xs uppercase tracking-widest mb-4" style={{ color: "rgba(56,189,248,0.7)" }}>Contact</h4>
             <ul className="flex flex-col gap-2 text-xs">
               <li><a href="https://devfolio.co" target="_blank" rel="noopener noreferrer">Register on Devfolio ↗</a></li>
-              <li>altaria@dsce.edu.in</li>
+              <li>altaria.iot.tech@gmail.com</li>
               <li>7795331348</li>
               <li>8237809560</li>
             </ul>

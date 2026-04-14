@@ -18,6 +18,7 @@ export default function Hero() {
   const zoomGroupRef = useRef(null);
   const contentRef = useRef(null);
   const [vantaEffect, setVantaEffect] = useState(null);
+  const fadeRef = useRef(null);
 
   // Initialize Vanta Clouds
   useEffect(() => {
@@ -85,6 +86,12 @@ export default function Hero() {
           duration: 0.2,
           ease: "power1.in",
         }, 0.7);
+
+        tl.to(fadeRef.current, {
+          opacity: 1,
+          duration: 0.8,
+          ease: "none",
+        }, 0.1);
 
       }, sectionRef);
 
@@ -168,6 +175,22 @@ export default function Hero() {
           </div>
         </div>
       </div>
+      <div
+          ref={fadeRef}
+          className="pointer-events-none absolute bottom-0 left-0 w-full h-[45vh] z-20"
+          style={{
+            background: `
+              linear-gradient(
+                to bottom,
+                rgba(7,11,16,0) 0%,
+                rgba(7,11,16,0.2) 30%,
+                rgba(7,11,16,0.6) 60%,
+                #070b10 100%
+              )
+            `,
+            opacity: 0,
+          }}
+        />
     </section>
   );
 }

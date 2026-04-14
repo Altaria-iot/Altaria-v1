@@ -9,7 +9,7 @@ import CLOUDS from "vanta/dist/vanta.clouds.min";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const DISCORD_URL = "https://discord.gg/8BBgpktA";
+const DISCORD_URL = "https://discord.gg/nB5qgsg4g";
 
 export default function Hero() {
   const { booted } = useSite();

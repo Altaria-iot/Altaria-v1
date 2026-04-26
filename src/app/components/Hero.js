@@ -7,17 +7,33 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
 import CLOUDS from "vanta/dist/vanta.clouds.min";
 
+import { useLenis } from "lenis/react";
+
 gsap.registerPlugin(ScrollTrigger);
 
-const DISCORD_URL = "https://discord.gg/8BBgpktA";
+const DISCORD_URL = "https://discord.gg/nB5qgsg4g";
 
 export default function Hero() {
   const { booted } = useSite();
+  const lenis = useLenis();
   const sectionRef = useRef(null);
   const vantaRef = useRef(null);
   const zoomGroupRef = useRef(null);
   const contentRef = useRef(null);
   const [vantaEffect, setVantaEffect] = useState(null);
+  const fadeRef = useRef(null);
+
+  const tagRef = useRef(null);
+
+  const handleScrollToFinalists = (e) => {
+    e.preventDefault();
+    if (lenis) {
+      lenis.scrollTo("#finalists", {
+        duration: 2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    }
+  };
 
   // Initialize Vanta Clouds
   useEffect(() => {
@@ -62,8 +78,8 @@ export default function Hero() {
           },
         });
 
-        // Phase 1 (0 → 0.25): Fade out subtext & buttons
-        tl.to(contentRef.current, {
+        // Phase 1 (0 → 0.25): Fade out tag, subtext & buttons
+        tl.to([contentRef.current, tagRef.current], {
           opacity: 0,
           y: -80,
           filter: "blur(6px)",
@@ -85,6 +101,12 @@ export default function Hero() {
           duration: 0.2,
           ease: "power1.in",
         }, 0.7);
+
+        tl.to(fadeRef.current, {
+          opacity: 1,
+          duration: 0.8,
+          ease: "none",
+        }, 0.1);
 
       }, sectionRef);
 
@@ -122,18 +144,51 @@ export default function Hero() {
         {/* Zoom group: ALTARIA + V1 centered */}
         <div
           ref={zoomGroupRef}
-          className="flex flex-col items-center justify-center whitespace-nowrap opacity-100"
+          className="relative flex flex-col items-center justify-center whitespace-nowrap opacity-100"
           style={{ transformOrigin: "center center" }}
         >
-          <h1 className="hero-title zoom-letter text-[clamp(4rem,10vw,12rem)] leading-none mb-0 flex items-baseline justify-center whitespace-nowrap gap-4 font-[Londrina] text-9xl">
+          <h1 className="hero-title zoom-letter text-[clamp(4rem,14vw,12rem)] leading-none mb-0 flex items-baseline justify-center whitespace-nowrap gap-4 font-[Londrina] text-9xl">
             <span>ALTARIA V</span><span>1</span>
           </h1>
         </div>
 
+        {/* Notification Capsule — between logo and subtext */}
+        <div ref={tagRef} className="flex justify-center mt-10">
+          <a
+            href="#finalists"
+            onClick={handleScrollToFinalists}
+            className="hud-capsule-tag group"
+          >
+            {/* Decorative star icons */}
+            <svg className="capsule-icon-1" viewBox="0 0 24 24" fill="white">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+            <svg className="capsule-icon-2" viewBox="0 0 24 24" fill="white">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+            <svg className="capsule-icon-3" viewBox="0 0 24 24" fill="white">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+
+            <span className="relative z-10 flex items-center gap-2 font-mono uppercase tracking-[0.15em] text-white">
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+              Finalized Teams Released
+              <svg
+                className="w-3 h-3 transition-transform group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
+        </div>
+
         {/* Subtext + CTAs */}
-        <div ref={contentRef} className="mt-8">
+        <div ref={contentRef} className="mt-6 relative z-10">
           <p
-            className="text-sm md:text-xl max-w-xl mx-auto mb-10 leading-relaxed font-['Space_Grotesk',sans-serif] text-white/80 drop-shadow-lg"
+            className="text-sm md:text-lg max-w-xl mx-auto mb-10 leading-relaxed font-['Space_Grotesk',sans-serif] text-white/80 drop-shadow-lg"
           >
             24 Hours of Reckless Creation, Unreasonable Collaboration, and Beautiful Chaos
           </p>
@@ -168,6 +223,22 @@ export default function Hero() {
           </div>
         </div>
       </div>
+      <div
+          ref={fadeRef}
+          className="pointer-events-none absolute bottom-0 left-0 w-full h-[45vh] z-20"
+          style={{
+            background: `
+              linear-gradient(
+                to bottom,
+                rgba(7,11,16,0) 0%,
+                rgba(7,11,16,0.2) 30%,
+                rgba(7,11,16,0.6) 60%,
+                #070b10 100%
+              )
+            `,
+            opacity: 0,
+          }}
+        />
     </section>
   );
 }

@@ -273,6 +273,117 @@ body {
   text-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
 }
 
+/* ===== HUD NOTIFICATION CAPSULE ===== */
+.hud-capsule-tag {
+  position: relative;
+  padding: 12px 32px;
+  background: #3b82f6;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+  cursor: pointer;
+  border: 1px solid #2563eb;
+  border-radius: 50px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  animation: float-tag 4s ease-in-out infinite;
+  margin-bottom: 2rem;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.hud-capsule-tag:hover {
+  border: 1px solid #1d4ed8;
+  background: linear-gradient(
+    85deg,
+    #60a5fa,
+    #3b82f6,
+    #2563eb,
+    #3b82f6,
+    #60a5fa
+  );
+  background-size: 200% 200%;
+  animation: wind 2s ease-in-out infinite, float-tag 4s ease-in-out infinite;
+}
+
+@keyframes wind {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float-tag {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Capsule decorative icons */
+.hud-capsule-tag .capsule-icon-1 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px;
+  transform-origin: 0 0;
+  transform: rotate(10deg);
+  transition: all 0.5s ease-in-out;
+}
+
+.hud-capsule-tag:hover .capsule-icon-1 {
+  animation: slay-1 3s cubic-bezier(0.52, 0, 0.58, 1) infinite;
+  transform: rotate(10deg);
+}
+
+@keyframes slay-1 {
+  0% { transform: rotate(10deg); }
+  50% { transform: rotate(-5deg); }
+  100% { transform: rotate(10deg); }
+}
+
+.hud-capsule-tag .capsule-icon-2 {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  width: 12px;
+  transform-origin: 50% 0;
+  transform: rotate(10deg);
+  transition: all 1s ease-in-out;
+}
+
+.hud-capsule-tag:hover .capsule-icon-2 {
+  animation: slay-2 3s cubic-bezier(0.52, 0, 0.58, 1) 1s infinite;
+  transform: rotate(0);
+}
+
+@keyframes slay-2 {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+  100% { transform: rotate(0); }
+}
+
+.hud-capsule-tag .capsule-icon-3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  transform-origin: 50% 0;
+  transform: rotate(-5deg);
+  transition: all 1s ease-in-out;
+}
+
+.hud-capsule-tag:hover .capsule-icon-3 {
+  animation: slay-3 2s cubic-bezier(0.52, 0, 0.58, 1) 1s infinite;
+  transform: rotate(0);
+}
+
+@keyframes slay-3 {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(-5deg); }
+  100% { transform: rotate(0); }
+}
+
 /* .hero-v1 {
   font-family: monospace;
 } */

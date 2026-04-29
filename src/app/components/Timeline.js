@@ -31,7 +31,7 @@ const EVENTS = [
     name: "Hackathon Day 1",
     date: "2026-04-30",
     displayDate: "30th April 2026",
-    description: "The 24-hour sprint begins. Code, create, conquer.",
+    description: "The 24-hour sprint begins. Code, create, conquer. ",
     schedule: [
       "Inauguration & Registration 12:00 PM",
       "Lunch 1:30 PM",
